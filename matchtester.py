@@ -24,18 +24,6 @@ for i in top_windows:
         win32gui.ShowWindow(i[0],5)
         win32gui.SetForegroundWindow(i[0])
         win32gui.MoveWindow(i[0], 0, 0, 650, 1050, True)
-        
-        '''
-        Getting the size/location of the window
-        rect = win32gui.GetWindowRect(i[0])
-        x = rect[0]
-        y = rect[1]
-        w = rect[2] - x
-        h = rect[3] - y
-        print("Window %s:" % win32gui.GetWindowText(i[0]))
-        print("\tLocation: (%d, %d)" % (x, y))
-        print("\t    Size: (%d, %d)" % (w, h))
-        '''
 
 img_rgb=np.array(ImageGrab.grab(bbox=(0,0,600,1000))) # X1,Y1,X2,Y2
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)

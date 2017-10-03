@@ -3,7 +3,6 @@ import cv2, numpy as np, pyautogui, time, win32gui, msvcrt, collections
 from matplotlib import pyplot as plt
 
 #filenames and manually found thresholds for template matching
-#stones = ["stone.png", "pebble.png", "big_stone.png", "rock.png", "shuriken.png", "cold_shuriken.png", "four_shuriken.png", "clover.png", "four_clover.png", "hadouken.png"]
 thresholds = collections.OrderedDict([("stone.png", 0.7), ("pebble.png",0.48), ("big_stone.png", 0.6), ("rock.png", 0.8), ("shuriken.png", 0.75), ("cold_shuriken.png", 0.62), ("four_shuriken.png",0.61), ("clover.png", 0.6), ("four_clover.png", 0.57), ("hadouken.png", 0.58)])
 
 #offsets for region of interest (our inventory)
@@ -27,18 +26,6 @@ for i in top_windows:
         win32gui.ShowWindow(i[0],5)
         win32gui.SetForegroundWindow(i[0])
         win32gui.MoveWindow(i[0], 0, 0, 650, 1050, True)
-        
-        '''
-        Getting the size/location of the window
-        rect = win32gui.GetWindowRect(i[0])
-        x = rect[0]
-        y = rect[1]
-        w = rect[2] - x
-        h = rect[3] - y
-        print("Window %s:" % win32gui.GetWindowText(i[0]))
-        print("\tLocation: (%d, %d)" % (x, y))
-        print("\t    Size: (%d, %d)" % (w, h))
-        '''
         
 while True:
     for stone in thresholds.keys():
@@ -108,17 +95,11 @@ while True:
             if pt+1 <= len(points):
                 print("Starting at point: ", points[pt])
                 pyautogui.moveTo(points[pt][0]+25+x_offset, points[pt][1]+25+y_offset)
-                #pyautogui.click()
-                #pyautogui.mouseDown()
-                #time.sleep(2)
                 print("Moved to point: ", points[pt+1])
-                #pyautogui.moveTo(points[pt+1][0]+5, points[pt+1][1]+5)
-                
 				#x coord + 25 (since the width of the inventory space is around 50px) + xoffset, same for y
                 pyautogui.dragTo(points[pt+1][0]+25+x_offset,points[pt+1][1]+25+y_offset, 2, pyautogui.easeInQuad,button='left')
-                #pyautogui.mouseUp()
                 pyautogui.moveTo(5,5)
-                #time.sleep(2)
+
                 
 
         time.sleep(1.5)

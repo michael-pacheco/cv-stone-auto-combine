@@ -1,6 +1,5 @@
 from PIL import ImageGrab
 import cv2, numpy as np, pyautogui, time, win32gui, msvcrt, collections
-from matplotlib import pyplot as plt
 
 #filenames and manually found thresholds for template matching
 thresholds = collections.OrderedDict([("stone.png", 0.7), ("pebble.png",0.48), ("big_stone.png", 0.6), ("rock.png", 0.8), ("shuriken.png", 0.75), ("cold_shuriken.png", 0.62), ("four_shuriken.png",0.61), ("clover.png", 0.6), ("four_clover.png", 0.57), ("hadouken.png", 0.58)])
@@ -35,7 +34,7 @@ while True:
         img_rgb=np.array(ImageGrab.grab(bbox=(0,0,600,1000))) # X1,Y1,X2,Y2
         img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
         img_gray = img_gray[y_offset:1000, x_offset:595]
-        template = cv2.imread(stone,0)
+        template = cv2.imread("stones/"+stone,0)
         w, h = template.shape[::-1]
         res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
         threshold = thresholds[stone]
@@ -59,7 +58,7 @@ while True:
         #this should definitely be a function
         if stone.split('.')[0] == "big_stone":
             #START OF STONE PURGE   
-            template2 = cv2.imread('stone.png',0)
+            template2 = cv2.imread("stones/stone.png",0)
             w2, h2 = template2.shape[::-1]
             res2 = cv2.matchTemplate(img_gray,template2,cv2.TM_CCOEFF_NORMED)
             threshold2 = 0.7
